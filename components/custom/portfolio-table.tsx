@@ -59,7 +59,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="whitespace-nowrap">ID</TableHead>
+            <TableHead className="whitespace-nowrap text-right">Unit of Potential (UoP)</TableHead>
             <TableHead className="min-w-[200px] whitespace-nowrap">Deployment Name</TableHead>
             <TableHead className="whitespace-nowrap">Business Unit</TableHead>
             <TableHead className="whitespace-nowrap">Function</TableHead>
@@ -75,7 +75,6 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
             <TableHead className="whitespace-nowrap text-right">Reskill Δ%</TableHead>
             <TableHead className="whitespace-nowrap text-right">Absorption</TableHead>
             <TableHead className="whitespace-nowrap text-right">Alignment</TableHead>
-            <TableHead className="whitespace-nowrap text-right">Unit of Potential (UoP)</TableHead>
             <TableHead className="whitespace-nowrap text-right">Sentiment Score</TableHead>
             <TableHead className="whitespace-nowrap">Vendor</TableHead>
             <TableHead className="whitespace-nowrap">Workforce Path</TableHead>
@@ -84,9 +83,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
         <TableBody>
           {data.map((row) => (
             <TableRow key={row.uopId}>
-              <TableCell className="font-mono text-xs text-muted-foreground">
-                {row.uopId}
-              </TableCell>
+              <TableCell className="text-right tabular-nums font-medium">{row.uopScore}%</TableCell>
               <TableCell className="font-medium">{row.name}</TableCell>
               <TableCell>{row.businessUnit}</TableCell>
               <TableCell>{row.function}</TableCell>
@@ -120,7 +117,6 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
               </TableCell>
               <TableCell className="text-right tabular-nums">{row.absorption}%</TableCell>
               <TableCell className="text-right tabular-nums">{row.alignment}%</TableCell>
-              <TableCell className="text-right tabular-nums font-medium">{row.uopScore}%</TableCell>
               <TableCell className="text-right tabular-nums">{row.sentimentScore.toFixed(2)}</TableCell>
               <TableCell className="text-xs">{row.vendor}</TableCell>
               <TableCell className="text-xs">{row.workforcePath}</TableCell>

@@ -188,10 +188,10 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
 
       {/* Header row */}
       <div className="flex items-center gap-6 border-b border-border border-l-4 border-l-transparent bg-muted/30 px-6 py-2">
-        <div className="w-16 shrink-0">
+        <div className="flex w-12 shrink-0 items-center">
           {isDetail
-            ? <StaticHeader label="ID" />
-            : <SortHeader label="ID" col="uopId" sort={sort} onSort={handleSort} />}
+            ? <StaticHeader label="UoP Score" />
+            : <SortHeader label="UoP Score" col="uopScore" sort={sort} onSort={handleSort} />}
         </div>
         <div className="min-w-[280px] flex-1">
           {isDetail
@@ -200,11 +200,6 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
         </div>
         <div className="flex flex-1 items-center">
           <StaticHeader label="Suggested Executive Action" />
-        </div>
-        <div className="flex w-12 shrink-0 items-center">
-          {isDetail
-            ? <StaticHeader label="UoP Score" />
-            : <SortHeader label="UoP Score" col="uopScore" sort={sort} onSort={handleSort} />}
         </div>
         {isDetail && (
           <div className="flex flex-1 items-center">
@@ -242,9 +237,9 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
 
           const rowContent = (
             <>
-              {/* ID */}
-              <div className="w-16 shrink-0">
-                <span className="font-mono text-xs text-muted-foreground">{item.uopId}</span>
+              {/* UoP score */}
+              <div className={cn("flex w-12 shrink-0 items-center text-3xl font-bold tabular-nums", cfg.score)}>
+                {item.uopScore}
               </div>
 
               {/* Deployment name + subtitle */}
@@ -263,11 +258,6 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
                 >
                   {rec}
                 </Badge>
-              </div>
-
-              {/* UoP score */}
-              <div className={cn("flex w-12 shrink-0 items-center text-3xl font-bold tabular-nums", cfg.score)}>
-                {item.uopScore}
               </div>
 
               {/* Absorption / Alignment — detail only */}
