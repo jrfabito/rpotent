@@ -1,9 +1,7 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
-import { useTheme } from "next-themes"
-import { IconSun, IconMoon, IconHome } from "@tabler/icons-react"
-import { Button } from "@/components/ui/button"
+import React from "react"
+import { IconHome } from "@tabler/icons-react"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -32,10 +30,7 @@ export function PageHeader({
   fixed = true,
   className,
 }: PageHeaderProps) {
-  const { resolvedTheme, setTheme } = useTheme()
   const hasBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
-  const [mounted, setMounted] = useState(false)
-  useEffect(() => setMounted(true), [])
 
   return (
     <header
@@ -45,16 +40,8 @@ export function PageHeader({
         className
       )}
     >
-      <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between px-4 sm:px-6">
+      <div className="mx-auto flex h-14 max-w-[1440px] items-center px-4 sm:px-6">
         <span className="text-lg font-semibold tracking-wide">{siteName}</span>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          aria-label="Toggle theme"
-          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-        >
-          {mounted && (resolvedTheme === "dark" ? <IconSun /> : <IconMoon />)}
-        </Button>
       </div>
 
       {hasBreadcrumbs && (
