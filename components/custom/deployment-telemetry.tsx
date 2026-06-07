@@ -119,14 +119,19 @@ interface ChartCardProps {
   stroke: string
   unit?: string
   showAvg?: boolean
+  committedValue?: number
 }
 
-function ChartCard({ title, subtitle, description, data, stroke, unit = "", showAvg = true }: ChartCardProps) {
+function ChartCard({ title, subtitle, description, data, stroke, unit = "", showAvg = true, committedValue }: ChartCardProps) {
   const values = data.map(d => d.value)
-  const ticks = yTicks(values)
+  const ticks = committedValue !== undefined ? yTicks([...values, committedValue]) : yTicks(values)
   const avg = calcAvg(values)
-  const { contentStyle, labelStyle, itemStyle } = tooltipStyle()
+  const { contentStyle, labelStyle } = tooltipStyle()
   const gradientId = `grad-${stroke.replace(/[^a-zA-Z0-9-]/g, "")}`
+
+  const chartData = committedValue !== undefined
+    ? data.map(d => ({ ...d, gap: Math.max(0, committedValue - d.value), committed: committedValue }))
+    : data
 
   return (
     <Card>
@@ -139,25 +144,54 @@ function ChartCard({ title, subtitle, description, data, stroke, unit = "", show
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={180}>
-          <AreaChart data={data} margin={{ top: 4, right: 52, bottom: 0, left: -8 }}>
-            <defs>
-              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={stroke} stopOpacity={0.2} />
-                <stop offset="100%" stopColor={stroke} stopOpacity={0} />
-              </linearGradient>
-            </defs>
+          <AreaChart data={chartData} margin={{ top: 4, right: 52, bottom: 0, left: -8 }}>
+            {committedValue === undefined && (
+              <defs>
+                <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor={stroke} stopOpacity={0.2} />
+                  <stop offset="100%" stopColor={stroke} stopOpacity={0} />
+                </linearGradient>
+              </defs>
+            )}
             <CartesianGrid stroke="currentColor" opacity={0.15} strokeDasharray="3 3" />
             <XAxis dataKey="date" tick={axisTickStyle} axisLine={false} tickLine={false} />
-            <YAxis ticks={ticks} tick={axisTickStyle} axisLine={false} tickLine={false} />
-            <Tooltip contentStyle={contentStyle} labelStyle={labelStyle} itemStyle={itemStyle} />
+            <YAxis ticks={ticks} tick={axisTickStyle} axisLine={false} tickLine={false} domain={committedValue !== undefined ? [0, committedValue] : undefined} />
+            <Tooltip
+              contentStyle={contentStyle}
+              labelStyle={labelStyle}
+              itemStyle={{ fontSize: 12 }}
+              formatter={(value, name) =>
+                name === "gap" ? null : [value, String(name)]
+              }
+            />
             {showAvg && (
               <ReferenceLine y={avg} stroke="currentColor" opacity={0.7} strokeDasharray="4 4" strokeWidth={2}>
                 <Label value={`${avg}${unit}`} position="right" style={refLabelStyle} />
               </ReferenceLine>
             )}
-            <Area type="monotone" dataKey="value" stroke={stroke} strokeWidth={2} fill={`url(#${gradientId})`} fillOpacity={1} dot={false} />
+            {committedValue !== undefined ? (
+              <>
+                <Area type="monotone" dataKey="value" stackId="1" stroke={stroke} strokeWidth={2} fillOpacity={0} dot={false} name="Realized" />
+                <Area type="monotone" dataKey="gap" stackId="1" stroke="none" strokeWidth={0} fill="#F59E0B" fillOpacity={0.25} dot={false} name="gap" legendType="none" />
+                <Area type="monotone" dataKey="committed" stroke="#F59E0B" strokeWidth={2} fill="none" dot={false} strokeDasharray="4 4" name="Committed" />
+              </>
+            ) : (
+              <Area type="monotone" dataKey="value" stroke={stroke} strokeWidth={2} fill={`url(#${gradientId})`} fillOpacity={1} dot={false} />
+            )}
           </AreaChart>
         </ResponsiveContainer>
+        {committedValue !== undefined && (
+          <div className="mt-2 flex items-center gap-4">
+            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <span className="inline-block h-0.5 w-4 rounded" style={{ backgroundColor: stroke }} />
+              Realized
+            </span>
+            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <span className="inline-block h-0.5 w-4 rounded" style={{ backgroundImage: "repeating-linear-gradient(90deg, #F59E0B 0, #F59E0B 4px, transparent 4px, transparent 8px)", backgroundColor: "transparent" }} />
+              Committed
+            </span>
+          </div>
+        )}
       </CardContent>
     </Card>
   )
@@ -184,14 +218,14 @@ function RedeploymentCard({ confirmed, committed, labels }: RedeploymentCardProp
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg font-medium text-foreground">Upskill Progress</CardTitle>
+        <CardTitle className="text-lg font-medium text-foreground">Upskill Done</CardTitle>
         <CardAction>
           <ChartInfoButton
-            title="Upskill Progress"
-            description="Tracks the number of workers confirmed for upskilling against the total committed headcount. The orange solid line shows confirmed placements over time; the amber dashed line shows the committed target."
+            title="Upskill Done"
+            description="Tracks the number of workers done upskilling against the total committed headcount. The orange solid line shows confirmed placements over time; the amber dashed line shows the committed target."
           />
         </CardAction>
-        <p className="text-xs text-muted-foreground">Confirmed upskill vs committed headcount</p>
+        <p className="text-xs text-muted-foreground">Upskill Done vs Committed headcount</p>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={180}>
@@ -245,9 +279,10 @@ function SectionLabel({ label }: { label: string }) {
 interface DeploymentTelemetryProps {
   telemetry: Telemetry | null | undefined
   timeRange: TimeRangeValue
+  committedCost?: number
 }
 
-export function DeploymentTelemetry({ telemetry, timeRange }: DeploymentTelemetryProps) {
+export function DeploymentTelemetry({ telemetry, timeRange, committedCost }: DeploymentTelemetryProps) {
   const labels = useMemo(() => generateLabels(timeRange), [timeRange])
 
   if (!telemetry) {
@@ -298,13 +333,14 @@ export function DeploymentTelemetry({ telemetry, timeRange }: DeploymentTelemetr
             unit="h"
           />
           <ChartCard
-            title="Dollars Realized (Cumulative)"
-            subtitle="Cumulative value realized in $M"
+            title="Cost Realized"
+            subtitle="Cumulative Cost Realized vs Committed in $M"
             description="The cumulative dollar value realized from this AI deployment over time, measured in millions. This tracks the total business value captured since deployment began and grows monotonically as value is confirmed."
             data={toChartData(telemetry.realizedCumulative, labels)}
             stroke="oklch(0.553 0.195 38.402)"
             unit="M"
             showAvg={false}
+            committedValue={committedCost}
           />
         </div>
       </div>
@@ -313,8 +349,8 @@ export function DeploymentTelemetry({ telemetry, timeRange }: DeploymentTelemetr
         <SectionLabel label="Employee Feedback" />
         <div className="grid grid-cols-2 gap-4">
           <ChartCard
-            title="Sentiment Score"
-            subtitle="Worker voice score out of 5"
+            title="Worker Voice"
+            subtitle="Sentiment Score score out of 5"
             description="The worker voice sentiment score for this deployment, rated on a scale of 1 to 5. This reflects how employees feel about the AI initiative based on survey responses collected over the selected period."
             data={toChartData(telemetry.sentiment, labels)}
             stroke="oklch(0.553 0.195 38.402)"

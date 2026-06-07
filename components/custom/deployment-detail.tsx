@@ -82,7 +82,7 @@ export function DeploymentDetail({ item, allDeployments }: DeploymentDetailProps
 
       <DeploymentSummary item={item} />
 
-      <DeploymentTelemetry telemetry={telemetry} timeRange={timeRange} />
+      <DeploymentTelemetry telemetry={telemetry} timeRange={timeRange} committedCost={item.committedCost} />
 
     </div>
   )
