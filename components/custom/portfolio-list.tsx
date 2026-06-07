@@ -14,7 +14,7 @@ function WorkbenchButton() {
   return (
     <>
       <Button variant="default" size="sm" onClick={() => setOpen(true)}>
-        View ledger in Workbench
+        View history in Workbench
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
@@ -224,7 +224,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
               <StaticHeader label="Workforce Path" />
             </div>
             <div className="shrink-0" aria-hidden>
-              <Button variant="default" size="sm" className="invisible pointer-events-none">View ledger in Workbench</Button>
+              <Button variant="default" size="sm" className="invisible pointer-events-none">View history in Workbench</Button>
             </div>
           </>
         )}
