@@ -254,7 +254,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
               <div className="flex flex-1 items-center">
                 <Badge
                   variant="outline"
-                  className={cn(cfg.badge, isDetail && "px-3 py-1 text-sm")}
+                  className={cn(cfg.badge, "px-3 py-3 text-md")}
                 >
                   {rec}
                 </Badge>
