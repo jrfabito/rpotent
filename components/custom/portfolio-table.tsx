@@ -68,7 +68,7 @@ export function PortfolioTable({ data }: PortfolioTableProps) {
             <TableHead className="whitespace-nowrap text-right">Realized $ (M)</TableHead>
             <TableHead className="whitespace-nowrap text-right">Realized %</TableHead>
             <TableHead className="whitespace-nowrap text-right">People Committed</TableHead>
-            <TableHead className="whitespace-nowrap text-right">People Confirmed</TableHead>
+            <TableHead className="whitespace-nowrap text-right">People Augmented</TableHead>
             <TableHead className="whitespace-nowrap text-right">Augment Δ%</TableHead>
             <TableHead className="whitespace-nowrap text-right">Reskill Committed</TableHead>
             <TableHead className="whitespace-nowrap text-right">Reskill Done</TableHead>

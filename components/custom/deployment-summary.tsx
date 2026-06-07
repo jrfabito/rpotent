@@ -141,7 +141,7 @@ export function DeploymentSummary({ item }: DeploymentSummaryProps) {
             fromValue={item.peopleCommitted.toLocaleString()}
             fromLabel="Committed"
             toValue={item.peopleAugmented.toLocaleString()}
-            toLabel="Confirmed"
+            toLabel="Augmented"
             toClassName={pctColorClass(peoplePct)}
             badge={
               <span className={cn("rounded-full px-2 py-0.5 text-xs font-medium", pctPillClass(peoplePct))}>

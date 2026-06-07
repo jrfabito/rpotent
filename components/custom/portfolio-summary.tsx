@@ -237,7 +237,7 @@ export function PortfolioSummary({ data }: PortfolioSummaryProps) {
             fromValue={totalPeopleCommitted.toLocaleString()}
             fromLabel="Committed"
             toValue={totalPeopleAugmented.toLocaleString()}
-            toLabel="Confirmed"
+            toLabel="Augmented"
             toClassName={peopleAugmentedColor}
             badge={
               <span className={cn("rounded-full px-2 py-0.5 text-xs font-medium", peoplePillCls)}>

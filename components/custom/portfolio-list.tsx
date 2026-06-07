@@ -146,7 +146,7 @@ function RedeploymentBar({ augmented, committed }: { augmented: number; committe
         <div className={cn("absolute inset-y-0 left-0 rounded-l-full", redeployFillClass(pct))} style={{ width: `${Math.min(pct, 100)}%` }} />
       </div>
       <div className="flex justify-between text-xs tabular-nums">
-        <span className={pctColorClass(pct)}>{augmented.toLocaleString()} Confirmed</span>
+        <span className={pctColorClass(pct)}>{augmented.toLocaleString()} Augmented</span>
         <span className="text-muted-foreground">{committed.toLocaleString()} Committed</span>
       </div>
       <div className="flex justify-center">
