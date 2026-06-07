@@ -110,9 +110,9 @@ function SortHeader({
       {label}
       {isActive
         ? sort.dir === "asc"
-          ? <IconArrowUp className="size-3 text-primary" />
-          : <IconArrowDown className="size-3 text-primary" />
-        : <IconArrowsSort className="size-3 opacity-40" />
+          ? <IconArrowUp className="size-5 text-primary" />
+          : <IconArrowDown className="size-5 text-primary" />
+        : <IconArrowsSort className="size-5 opacity-40" />
       }
     </button>
   )
@@ -188,7 +188,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
 
       {/* Header row */}
       <div className="flex items-center gap-6 border-b border-border border-l-4 border-l-transparent bg-muted/30 px-6 py-2">
-        <div className="flex w-12 shrink-0 items-center">
+        <div className="flex w-20 shrink-0 items-center">
           {isDetail
             ? <StaticHeader label="UoP Score" />
             : <SortHeader label="UoP Score" col="uopScore" sort={sort} onSort={handleSort} />}
@@ -238,7 +238,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
           const rowContent = (
             <>
               {/* UoP score */}
-              <div className={cn("flex w-12 shrink-0 items-center text-3xl font-bold tabular-nums", cfg.score)}>
+              <div className={cn("flex w-20 shrink-0 items-center text-3xl font-bold tabular-nums", cfg.score)}>
                 {item.uopScore}
               </div>
 
