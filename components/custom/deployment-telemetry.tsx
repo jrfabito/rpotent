@@ -126,7 +126,7 @@ function ChartCard({ title, subtitle, description, data, stroke, unit = "", show
   const ticks = yTicks(values)
   const avg = calcAvg(values)
   const { contentStyle, labelStyle, itemStyle } = tooltipStyle()
-  const gradientId = `grad-${stroke.replace("#", "")}`
+  const gradientId = `grad-${stroke.replace(/[^a-zA-Z0-9-]/g, "")}`
 
   return (
     <Card>
@@ -208,7 +208,7 @@ function RedeploymentCard({ confirmed, committed, labels }: RedeploymentCardProp
               }
             />
             {/* confirmed is the transparent stack base — its fill anchors the gap area above it */}
-            <Area type="monotone" dataKey="confirmed" stackId="1" stroke="#6EE7B7" strokeWidth={2} fillOpacity={0} dot={false} name="Confirmed" />
+            <Area type="monotone" dataKey="confirmed" stackId="1" stroke="oklch(0.553 0.195 38.402)" strokeWidth={2} fillOpacity={0} dot={false} name="Confirmed" />
             {/* gap sits on top of confirmed, filling only the space between the two lines */}
             <Area type="monotone" dataKey="gap" stackId="1" stroke="none" strokeWidth={0} fill="#F59E0B" fillOpacity={0.25} dot={false} name="gap" legendType="none" />
             {/* committed renders as a flat dashed line with no fill */}
@@ -217,7 +217,7 @@ function RedeploymentCard({ confirmed, committed, labels }: RedeploymentCardProp
         </ResponsiveContainer>
         <div className="mt-2 flex items-center gap-4">
           <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-            <span className="inline-block h-0.5 w-4 rounded bg-[#6EE7B7]" />
+            <span className="inline-block h-0.5 w-4 rounded" style={{ backgroundColor: "oklch(0.553 0.195 38.402)" }} />
             Confirmed
           </span>
           <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -273,7 +273,7 @@ export function DeploymentTelemetry({ telemetry, timeRange }: DeploymentTelemetr
             subtitle="Thousands of tokens consumed daily"
             description="The number of tokens consumed by this AI deployment per day, measured in thousands. Tokens represent the units of text processed by the model. Higher values indicate greater usage volume."
             data={toChartData(telemetry.tokensPerDay, labels)}
-            stroke="#3B82F6"
+            stroke="oklch(0.553 0.195 38.402)"
             unit="k"
           />
           <ChartCard
@@ -281,7 +281,7 @@ export function DeploymentTelemetry({ telemetry, timeRange }: DeploymentTelemetr
             subtitle="Number of tool invocations per day"
             description="The number of individual tool or function calls made by this AI deployment per day. Tool calls represent interactions with external systems, APIs, or capabilities beyond the base model."
             data={toChartData(telemetry.toolCallsPerDay, labels)}
-            stroke="#A855F7"
+            stroke="oklch(0.553 0.195 38.402)"
           />
         </div>
       </div>
@@ -294,7 +294,7 @@ export function DeploymentTelemetry({ telemetry, timeRange }: DeploymentTelemetr
             subtitle="Hours saved per full-time employee per week"
             description="The estimated number of hours saved per full-time employee per week as a result of this AI deployment. This metric reflects productivity gains from automation and AI-assisted workflows."
             data={toChartData(telemetry.hrsSavedPerFTE, labels)}
-            stroke="#F59E0B"
+            stroke="oklch(0.553 0.195 38.402)"
             unit="h"
           />
           <ChartCard
@@ -302,7 +302,7 @@ export function DeploymentTelemetry({ telemetry, timeRange }: DeploymentTelemetr
             subtitle="Cumulative value realized in $M"
             description="The cumulative dollar value realized from this AI deployment over time, measured in millions. This tracks the total business value captured since deployment began and grows monotonically as value is confirmed."
             data={toChartData(telemetry.realizedCumulative, labels)}
-            stroke="#EAB308"
+            stroke="oklch(0.553 0.195 38.402)"
             unit="M"
             showAvg={false}
           />
@@ -317,7 +317,7 @@ export function DeploymentTelemetry({ telemetry, timeRange }: DeploymentTelemetr
             subtitle="Worker voice score out of 5"
             description="The worker voice sentiment score for this deployment, rated on a scale of 1 to 5. This reflects how employees feel about the AI initiative based on survey responses collected over the selected period."
             data={toChartData(telemetry.sentiment, labels)}
-            stroke="#22C55E"
+            stroke="oklch(0.553 0.195 38.402)"
           />
           <RedeploymentCard
             confirmed={telemetry.redeploymentConfirmed}
