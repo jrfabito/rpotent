@@ -143,13 +143,13 @@ function RedeploymentBar({ augmented, committed }: { augmented: number; committe
   return (
     <div className="flex w-full flex-col gap-1">
       <div className="relative h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
-        <div className={cn("absolute inset-y-0 left-0 rounded-full", redeployFillClass(pct))} style={{ width: `${Math.min(pct, 100)}%` }} />
+        <div className={cn("absolute inset-y-0 left-0 rounded-l-full", redeployFillClass(pct))} style={{ width: `${Math.min(pct, 100)}%` }} />
       </div>
       <div className="flex justify-between text-xs tabular-nums">
-        <span className={pctColorClass(pct)}>{augmented.toLocaleString()}</span>
-        <span className="text-muted-foreground">{committed.toLocaleString()}</span>
+        <span className={pctColorClass(pct)}>{augmented.toLocaleString()} Confirmed</span>
+        <span className="text-muted-foreground">{committed.toLocaleString()} Committed</span>
       </div>
-      <span className={cn("self-start rounded-full px-2 py-0.5 text-xs font-medium", pillCls)}>
+      <span className={cn("self-start rounded-full px-2 py-0.5 text-xs font-medium mt-2", pillCls)}>
         {pillLabel}
       </span>
     </div>
@@ -202,13 +202,13 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
           <StaticHeader label="Suggested Executive Action" />
         </div>
         {isDetail && (
-          <div className="flex flex-1 items-center">
+          <div className="flex flex-col gap-0.5 w-36">
             <StaticHeader label="Absorption / Alignment" />
           </div>
         )}
         {!isDetail && (
           <>
-            <div className="flex flex-1 items-center">
+            <div className="flex flex-col gap-0.5 w-36">
               <StaticHeader label="Cost" />
             </div>
             <div className="flex flex-1 items-center">
@@ -244,9 +244,9 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
 
               {/* Deployment name + subtitle */}
               <div className="flex min-w-[280px] flex-1 flex-col">
-                <p className="font-medium leading-tight">{item.name}</p>
+                <p className="text-lg font-medium leading-tight">{item.name}</p>
                 <p className="mt-0.5 text-xs text-muted-foreground">
-                  {item.businessUnit} · {item.vendor} · {item.stage}
+                  {item.uopId} · {item.businessUnit} · {item.vendor} · {item.stage}
                 </p>
               </div>
 
@@ -262,7 +262,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
 
               {/* Absorption / Alignment — detail only */}
               {isDetail && (
-                <div className="flex flex-1 flex-col gap-0.5">
+                <div className="flex flex-col gap-0.5 w-36">
                   <div className="flex items-baseline justify-between text-xs">
                     <span className="text-muted-foreground">Absorption</span>
                     <span className={cn("tabular-nums", pctColorClass(item.absorption))}>{item.absorption}</span>
@@ -277,7 +277,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
               {/* Cost + People Committed — overview only */}
               {!isDetail && (
                 <>
-                  <div className="flex flex-1 flex-col gap-0.5">
+                  <div className="flex flex-col gap-0.5 w-36">
                     <div className="flex items-baseline justify-between text-xs">
                       <span className="text-muted-foreground">Committed</span>
                       <span className="tabular-nums">${item.committedCost.toFixed(1)}M</span>
@@ -289,7 +289,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
                       </span>
                     </div>
                     <div className="text-right">
-                      <span className={cn("rounded-full px-2 py-0.5 text-xs tabular-nums", pctPillClass(item.realizedCostPct))}>
+                      <span className={cn("rounded-full px-2 py-1 text-xs font-medium mt-2 tabular-nums", pctPillClass(item.realizedCostPct))}>
                         {item.realizedCostPct}% Realization Rate
                       </span>
                     </div>
