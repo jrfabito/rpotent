@@ -14,10 +14,10 @@ import {
 import type { PortfolioItem } from "./portfolio-table"
 import type { Telemetry } from "./deployment-telemetry"
 
-function getRecommendation(score: number): "Scale" | "Hold" | "Cut" {
-  if (score > 75) return "Scale"
+function getRecommendation(score: number): "Invest" | "Hold" | "Exit" {
+  if (score > 75) return "Invest"
   if (score >= 50) return "Hold"
-  return "Cut"
+  return "Exit"
 }
 
 interface WorkforceBlockerAlertProps {
@@ -28,7 +28,7 @@ interface WorkforceBlockerAlertProps {
 export function WorkforceBlockerAlert({ item, telemetry }: WorkforceBlockerAlertProps) {
   const [open, setOpen] = useState(false)
 
-  if (getRecommendation(item.uopScore) !== "Cut") return null
+  if (getRecommendation(item.uopScore) !== "Exit") return null
 
   const confirmedPaths = telemetry
     ? telemetry.redeploymentConfirmed[telemetry.redeploymentConfirmed.length - 1]
@@ -47,7 +47,7 @@ export function WorkforceBlockerAlert({ item, telemetry }: WorkforceBlockerAlert
               {unresolved.toLocaleString()} do not.
             </p>
             <p className="font-semibold">
-              A cut decision requires a workforce plan for those {unresolved.toLocaleString()} people
+              An exit decision requires a workforce plan for those {unresolved.toLocaleString()} people
               before proceeding.
             </p>
             <div className="flex items-center justify-between gap-4">

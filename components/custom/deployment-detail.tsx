@@ -26,10 +26,10 @@ type DeploymentItem = PortfolioItem & {
   telemetry?: Telemetry | null
 }
 
-function getRecommendation(score: number): "Scale" | "Hold" | "Cut" {
-  if (score > 75) return "Scale"
+function getRecommendation(score: number): "Invest" | "Hold" | "Exit" {
+  if (score > 75) return "Invest"
   if (score >= 50) return "Hold"
-  return "Cut"
+  return "Exit"
 }
 
 interface DeploymentDetailProps {
@@ -43,7 +43,7 @@ export function DeploymentDetail({ item, allDeployments }: DeploymentDetailProps
 
   const telemetry = item.telemetry
   const awaitingPath = item.peopleCommitted - item.peopleAugmented
-  const isCut = getRecommendation(item.uopScore) === "Cut"
+  const isCut = getRecommendation(item.uopScore) === "Exit"
 
   return (
     <div className="flex flex-col gap-6">

@@ -30,16 +30,16 @@ function WorkbenchButton() {
 
 // ── Recommendation ────────────────────────────────────────────────────────────
 
-type Recommendation = "Scale" | "Hold" | "Cut"
+type Recommendation = "Invest" | "Hold" | "Exit"
 
 function getRecommendation(score: number): Recommendation {
-  if (score > 75) return "Scale"
+  if (score > 75) return "Invest"
   if (score >= 50) return "Hold"
-  return "Cut"
+  return "Exit"
 }
 
 const REC: Record<Recommendation, { border: string; score: string; badge: string }> = {
-  Scale: {
+  Invest: {
     border: "border-l-green-500",
     score: "text-green-600 dark:text-green-400",
     badge: "border-green-200 bg-green-100 text-green-700 dark:border-green-900 dark:bg-green-950/50 dark:text-green-400",
@@ -49,7 +49,7 @@ const REC: Record<Recommendation, { border: string; score: string; badge: string
     score: "text-yellow-600 dark:text-yellow-400",
     badge: "border-yellow-200 bg-yellow-100 text-yellow-700 dark:border-yellow-900 dark:bg-yellow-950/50 dark:text-yellow-400",
   },
-  Cut: {
+  Exit: {
     border: "border-l-destructive",
     score: "text-destructive",
     badge: "border-red-200 bg-red-100 text-red-700 dark:border-red-900 dark:bg-red-950/50 dark:text-red-400",

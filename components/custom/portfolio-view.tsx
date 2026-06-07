@@ -18,9 +18,9 @@ interface PortfolioViewProps {
 }
 
 function getRecommendation(score: number): string {
-  if (score > 75) return "Scale"
+  if (score > 75) return "Invest"
   if (score >= 50) return "Hold"
-  return "Cut"
+  return "Exit"
 }
 
 function applyDimensionFilters(data: PortfolioItem[], filters: ActiveFilters): PortfolioItem[] {

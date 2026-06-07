@@ -32,7 +32,7 @@ const DIMENSIONS: { property: FilterableProperty; label: string }[] = [
 ]
 
 function getUniqueValues(data: PortfolioItem[], property: FilterableProperty): string[] {
-  if (property === "recommendation") return ["Scale", "Hold", "Cut"]
+  if (property === "recommendation") return ["Invest", "Hold", "Exit"]
   return Array.from(new Set(data.map((item) => String(item[property as keyof PortfolioItem])))).sort()
 }
 
