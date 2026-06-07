@@ -170,7 +170,7 @@ export function PortfolioSummary({ data }: PortfolioSummaryProps) {
       {/* Avg UoP Score */}
       <Card size="sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-muted-foreground">
+          <CardTitle className="text-lg text-muted-foreground">
             Average UoP Score
           </CardTitle>
           <CardAction>
@@ -180,7 +180,7 @@ export function PortfolioSummary({ data }: PortfolioSummaryProps) {
             />
           </CardAction>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-0">
           <SpeedDial score={avgUopScore} count={n} />
         </CardContent>
       </Card>
@@ -188,7 +188,7 @@ export function PortfolioSummary({ data }: PortfolioSummaryProps) {
       {/* Cost */}
       <Card size="sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-muted-foreground">
+          <CardTitle className="text-lg text-muted-foreground gap-1">
             Total Cost ($M)
           </CardTitle>
           <CardAction>
@@ -198,7 +198,7 @@ export function PortfolioSummary({ data }: PortfolioSummaryProps) {
             />
           </CardAction>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-0">
           <ValueTransition
             fromValue={`$${totalCommitted.toFixed(1)}`}
             fromLabel="Committed"
@@ -222,7 +222,7 @@ export function PortfolioSummary({ data }: PortfolioSummaryProps) {
       {/* Redeployment Status */}
       <Card size="sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-muted-foreground">
+          <CardTitle className="text-lg text-muted-foreground">
             Total People Committed
           </CardTitle>
           <CardAction>
@@ -232,7 +232,7 @@ export function PortfolioSummary({ data }: PortfolioSummaryProps) {
             />
           </CardAction>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-0">
           <ValueTransition
             fromValue={totalPeopleCommitted.toLocaleString()}
             fromLabel="Committed"
@@ -251,7 +251,7 @@ export function PortfolioSummary({ data }: PortfolioSummaryProps) {
       {/* Portfolio Sentiment */}
       <Card size="sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-muted-foreground">
+          <CardTitle className="text-lg text-muted-foreground">
             Average Worker Voice
           </CardTitle>
           <CardAction>

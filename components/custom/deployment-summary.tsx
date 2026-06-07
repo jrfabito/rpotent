@@ -101,7 +101,7 @@ export function DeploymentSummary({ item }: DeploymentSummaryProps) {
       {/* Cost */}
       <Card size="sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-muted-foreground">Cost ($M)</CardTitle>
+          <CardTitle className="text-lg text-muted-foreground">Cost ($M)</CardTitle>
           <CardAction>
             <CardInfoButton
               title="Cost ($M)"
@@ -128,7 +128,7 @@ export function DeploymentSummary({ item }: DeploymentSummaryProps) {
       {/* People Committed */}
       <Card size="sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-muted-foreground">People Committed</CardTitle>
+          <CardTitle className="text-lg text-muted-foreground">People Committed</CardTitle>
           <CardAction>
             <CardInfoButton
               title="People Committed"
@@ -155,7 +155,7 @@ export function DeploymentSummary({ item }: DeploymentSummaryProps) {
       {/* Reskill */}
       <Card size="sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-muted-foreground">Upskill Commitment</CardTitle>
+          <CardTitle className="text-lg text-muted-foreground">Upskill Commitment</CardTitle>
           <CardAction>
             <CardInfoButton
               title="Upskill Commitment"
@@ -182,7 +182,7 @@ export function DeploymentSummary({ item }: DeploymentSummaryProps) {
       {/* Worker Voice */}
       <Card size="sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-muted-foreground">Worker Voice</CardTitle>
+          <CardTitle className="text-lg text-muted-foreground">Worker Voice</CardTitle>
           <CardAction>
             <CardInfoButton
               title="Worker Voice"
