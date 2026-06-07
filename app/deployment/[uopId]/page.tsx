@@ -11,6 +11,8 @@ interface Props {
   params: Promise<{ uopId: string }>
 }
 
+const sortedDeployments = [...portfolioData].sort((a, b) => a.uopScore - b.uopScore)
+
 export default async function DeploymentPage({ params }: Props) {
   const { uopId } = await params
   const item = portfolioData.find((d) => d.uopId === uopId)
@@ -27,7 +29,7 @@ export default async function DeploymentPage({ params }: Props) {
         ]}
       />
       <main className="mx-auto max-w-[1440px] px-4 pt-28 pb-12 sm:px-6">
-        <DeploymentDetail item={item} />
+        <DeploymentDetail item={item} allDeployments={sortedDeployments} />
       </main>
     </>
   )

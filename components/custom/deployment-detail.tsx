@@ -20,6 +20,7 @@ import type { PortfolioItem } from "./portfolio-table"
 import { PortfolioList } from "./portfolio-list"
 import { DeploymentSummary } from "./deployment-summary"
 import { DeploymentTelemetry, type Telemetry } from "./deployment-telemetry"
+import { DeploymentNav } from "./deployment-nav"
 
 type DeploymentItem = PortfolioItem & {
   telemetry?: Telemetry | null
@@ -33,9 +34,10 @@ function getRecommendation(score: number): "Scale" | "Hold" | "Cut" {
 
 interface DeploymentDetailProps {
   item: DeploymentItem
+  allDeployments: PortfolioItem[]
 }
 
-export function DeploymentDetail({ item }: DeploymentDetailProps) {
+export function DeploymentDetail({ item, allDeployments }: DeploymentDetailProps) {
   const router = useRouter()
   const [timeRange, setTimeRange] = useState<TimeRangeValue>(DEFAULT_TIME_RANGE)
 
@@ -47,14 +49,17 @@ export function DeploymentDetail({ item }: DeploymentDetailProps) {
     <div className="flex flex-col gap-6">
 
       {/* Toolbar */}
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <Button variant="outline" size="sm" onClick={() => router.back()} className="gap-1.5">
-            <IconArrowLeft className="size-4" />
-            Return to Portfolio Overview
-          </Button>
+      <div className="relative flex items-center">
+        <Button variant="outline" size="sm" onClick={() => router.push("/")} className="gap-1.5">
+          <IconArrowLeft className="size-4" />
+          Return to Portfolio Overview
+        </Button>
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <DeploymentNav currentUopId={item.uopId} deployments={allDeployments} />
         </div>
-        <TimeRangeFilter value={timeRange} onChange={setTimeRange} />
+        <div className="ml-auto">
+          <TimeRangeFilter value={timeRange} onChange={setTimeRange} />
+        </div>
       </div>
       
       {isCut && (
