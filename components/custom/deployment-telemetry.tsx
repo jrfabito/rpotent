@@ -94,15 +94,15 @@ function yTicks(values: number[]): [number, number, number] {
 function tooltipStyle() {
   return {
     contentStyle: {
-      backgroundColor: "hsl(var(--background))",
-      border: "1px solid hsl(var(--border))",
+      backgroundColor: "var(--background)",
+      border: "1px solid var(--border)",
       borderRadius: "6px",
       boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
       padding: "8px",
       fontSize: "12px",
     },
-    labelStyle: { color: "hsl(var(--muted-foreground))" },
-    itemStyle: { color: "hsl(var(--foreground))" },
+    labelStyle: { color: "var(--muted-foreground)" },
+    itemStyle: { color: "var(--foreground)" },
   }
 }
 
@@ -188,7 +188,7 @@ function RedeploymentCard({ confirmed, committed, labels }: RedeploymentCardProp
         <CardAction>
           <ChartInfoButton
             title="Upskill Progress"
-            description="Tracks the number of workers confirmed for upskilling against the total committed headcount. The emerald line shows confirmed placements over time; the red dashed line shows the committed target."
+            description="Tracks the number of workers confirmed for upskilling against the total committed headcount. The orange solid line shows confirmed placements over time; the amber dashed line shows the committed target."
           />
         </CardAction>
         <p className="text-xs text-muted-foreground">Confirmed upskill vs committed headcount</p>

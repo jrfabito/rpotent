@@ -28,7 +28,7 @@ const DIMENSIONS: { property: FilterableProperty; label: string }[] = [
   { property: "function",       label: "Function" },
   { property: "stage",          label: "Stage" },
   { property: "vendor",         label: "Vendor" },
-  { property: "recommendation", label: "Suggested Executive Action" },
+  { property: "recommendation", label: "Recommendation" },
 ]
 
 function getUniqueValues(data: PortfolioItem[], property: FilterableProperty): string[] {

@@ -149,9 +149,11 @@ function RedeploymentBar({ augmented, committed }: { augmented: number; committe
         <span className={pctColorClass(pct)}>{augmented.toLocaleString()} Confirmed</span>
         <span className="text-muted-foreground">{committed.toLocaleString()} Committed</span>
       </div>
-      <span className={cn("self-start rounded-full px-2 py-0.5 text-xs font-medium mt-2", pillCls)}>
-        {pillLabel}
-      </span>
+      <div className="flex justify-center">
+        <span className={cn("self-start rounded-full px-2 py-0.5 text-xs", pillCls)}>
+          {pillLabel}
+        </span>
+      </div>
     </div>
   )
 }
@@ -199,7 +201,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
             : <SortHeader label="Deployment" col="name" sort={sort} onSort={handleSort} />}
         </div>
         <div className="flex flex-1 items-center">
-          <StaticHeader label="Suggested Executive Action" />
+          <StaticHeader label="Recommendation" />
         </div>
         {isDetail && (
           <div className="flex flex-col gap-0.5 w-36">
@@ -288,7 +290,7 @@ export function PortfolioList({ data, variant = "overview" }: PortfolioListProps
                         ${item.realizedCost.toFixed(1)}M
                       </span>
                     </div>
-                    <div className="text-right">
+                    <div className="text-center">
                       <span className={cn("rounded-full px-2 py-1 text-xs font-medium mt-2 tabular-nums", pctPillClass(item.realizedCostPct))}>
                         {item.realizedCostPct}% Realization Rate
                       </span>
