@@ -58,6 +58,7 @@ function resolveRange(timeRange: TimeRangeValue): { start: Date; end: Date } {
     case "24h": return { start: startOfDay(subDays(now, 1)), end: endOfDay(now) }
     case "7d":  return { start: startOfDay(subDays(now, 7)), end: endOfDay(now) }
     case "1m":  return { start: startOfDay(subMonths(now, 1)), end: endOfDay(now) }
+    case "3m":  return { start: startOfDay(subMonths(now, 3)), end: endOfDay(now) }
     case "custom": return {
       start: startOfDay(timeRange.customStart),
       end: endOfDay(timeRange.customEnd),

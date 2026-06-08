@@ -11,7 +11,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 
-export type TimeRangeOption = "24h" | "7d" | "1m" | "custom"
+export type TimeRangeOption = "24h" | "7d" | "1m" | "3m" | "custom"
 
 export interface TimeRangeValue {
   option: TimeRangeOption
@@ -23,7 +23,7 @@ const DATA_START = new Date("2026-05-26")
 const DATA_END = new Date("2026-06-05")
 
 export const DEFAULT_TIME_RANGE: TimeRangeValue = {
-  option: "1m",
+  option: "3m",
   customStart: DATA_START,
   customEnd: DATA_END,
 }
@@ -49,6 +49,10 @@ export function applyTimeRange<T extends { date: string }>(
       start = startOfDay(subMonths(now, 1))
       end = endOfDay(now)
       break
+    case "3m":
+      start = startOfDay(subMonths(now, 3))
+      end = endOfDay(now)
+      break
     case "custom":
       start = startOfDay(timeRange.customStart)
       end = endOfDay(timeRange.customEnd)
@@ -62,9 +66,10 @@ export function applyTimeRange<T extends { date: string }>(
 }
 
 const PRESET_LABELS: Record<Exclude<TimeRangeOption, "custom">, string> = {
-  "24h": "Last 24 hours",
-  "7d": "Last 7 days",
+  "24h": "Last 24 Hours",
+  "7d": "Last 7 Days",
   "1m": "Last Month",
+  "3m": "Last 3 Months",
 }
 
 function getTriggerLabel(value: TimeRangeValue): string {
@@ -114,7 +119,7 @@ export function TimeRangeFilter({ value, onChange }: TimeRangeFilterProps) {
         </PopoverTrigger>
         <PopoverContent align="end" className="w-auto p-3">
           <ButtonGroup className="w-full">
-            {(["24h", "7d", "1m"] as const).map((option) => (
+            {(["24h", "7d", "1m", "3m"] as const).map((option) => (
               <Button
                 key={option}
                 variant={value.option === option ? "default" : "outline"}
