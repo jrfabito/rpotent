@@ -121,11 +121,17 @@ interface ChartCardProps {
   unit?: string
   showAvg?: boolean
   committedValue?: number
+  yDomain?: [number, number | "auto"]
 }
 
-function ChartCard({ title, subtitle, description, data, stroke, unit = "", showAvg = true, committedValue }: ChartCardProps) {
+function ChartCard({ title, subtitle, description, data, stroke, unit = "", showAvg = true, committedValue, yDomain }: ChartCardProps) {
   const values = data.map(d => d.value)
-  const ticks = committedValue !== undefined ? yTicks([...values, committedValue]) : yTicks(values)
+  const ticks = committedValue !== undefined
+    ? yTicks([...values, committedValue])
+    : yDomain && typeof yDomain[1] === "number"
+      ? yTicks([0, yDomain[1]])
+      : yTicks(values)
+  const axisDomain = yDomain ?? (committedValue !== undefined ? [0, committedValue] : undefined)
   const avg = calcAvg(values)
   const { contentStyle, labelStyle } = tooltipStyle()
   const gradientId = `grad-${stroke.replace(/[^a-zA-Z0-9-]/g, "")}`
@@ -156,7 +162,7 @@ function ChartCard({ title, subtitle, description, data, stroke, unit = "", show
             )}
             <CartesianGrid stroke="currentColor" opacity={0.15} strokeDasharray="3 3" />
             <XAxis dataKey="date" tick={axisTickStyle} axisLine={false} tickLine={false} />
-            <YAxis ticks={ticks} tick={axisTickStyle} axisLine={false} tickLine={false} domain={committedValue !== undefined ? [0, committedValue] : undefined} />
+            <YAxis ticks={ticks} tick={axisTickStyle} axisLine={false} tickLine={false} domain={axisDomain} />
             <Tooltip
               contentStyle={contentStyle}
               labelStyle={labelStyle}
@@ -311,6 +317,7 @@ export function DeploymentTelemetry({ telemetry, timeRange, committedCost }: Dep
             data={toChartData(telemetry.tokensPerDay, labels)}
             stroke="oklch(0.553 0.195 38.402)"
             unit="k"
+            yDomain={[0, "auto"]}
           />
           <ChartCard
             title="Tool Calls per Day"
@@ -318,6 +325,7 @@ export function DeploymentTelemetry({ telemetry, timeRange, committedCost }: Dep
             description="The number of individual tool or function calls made by this AI deployment per day. Tool calls represent interactions with external systems, APIs, or capabilities beyond the base model."
             data={toChartData(telemetry.toolCallsPerDay, labels)}
             stroke="oklch(0.553 0.195 38.402)"
+            yDomain={[0, "auto"]}
           />
         </div>
       </div>
@@ -332,6 +340,7 @@ export function DeploymentTelemetry({ telemetry, timeRange, committedCost }: Dep
             data={toChartData(telemetry.hrsSavedPerFTE, labels)}
             stroke="oklch(0.553 0.195 38.402)"
             unit="h"
+            yDomain={[0, 8]}
           />
           <ChartCard
             title="Cost Realized"
@@ -355,6 +364,7 @@ export function DeploymentTelemetry({ telemetry, timeRange, committedCost }: Dep
             description="The worker voice sentiment score for this deployment, rated on a scale of 1 to 5. This reflects how employees feel about the AI initiative based on survey responses collected over the selected period."
             data={toChartData(telemetry.sentiment, labels)}
             stroke="oklch(0.553 0.195 38.402)"
+            yDomain={[0, 5]}
           />
           <RedeploymentCard
             confirmed={telemetry.redeploymentConfirmed}
