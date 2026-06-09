@@ -67,7 +67,7 @@ export function DeploymentDetail({ item, allDeployments }: DeploymentDetailProps
           <AlertCircleIcon />
           <AlertTitle><span className="font-bold">Take Caution</span></AlertTitle>
           <AlertDescription className="text-foreground">
-            {item.peopleCommitted.toLocaleString()} people were committed to this deployment. {item.peopleAugmented.toLocaleString()} have a confirmed path and {awaitingPath.toLocaleString()} people still await a path forward.
+            {item.peopleCommitted.toLocaleString()} people are committed to this deployment. {item.peopleAugmented.toLocaleString()} confirmed a path and {awaitingPath.toLocaleString()} people still await a path forward.
           </AlertDescription>
           <AlertAction>
             <Button size="sm" variant="outline">
