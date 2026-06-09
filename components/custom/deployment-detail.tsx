@@ -65,9 +65,9 @@ export function DeploymentDetail({ item, allDeployments }: DeploymentDetailProps
       {isCut && (
         <Alert variant="default" className="w-full border-2 border-destructive">
           <AlertCircleIcon />
-          <AlertTitle><span className="font-bold">Caution:</span> {item.peopleCommitted.toLocaleString()} people were committed to this deployment.</AlertTitle>
+          <AlertTitle><span className="font-bold">Take Caution</span></AlertTitle>
           <AlertDescription className="text-foreground">
-            {item.peopleCommitted.toLocaleString()} people were committed to this deployment. {item.peopleAugmented.toLocaleString()} have a confirmed path. {awaitingPath.toLocaleString()} are awaiting a path.
+            {item.peopleCommitted.toLocaleString()} people were committed to this deployment. {item.peopleAugmented.toLocaleString()} have a confirmed path and {awaitingPath.toLocaleString()} people still await a path forward.
           </AlertDescription>
           <AlertAction>
             <Button size="sm" variant="outline">
